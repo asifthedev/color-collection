@@ -6,6 +6,7 @@
     <title>Color Palette Collection</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
+        /* Fonts and reset styles */
         @font-face {
             font-family: Manrope;
             src: url(manrope.ttf);
@@ -20,10 +21,72 @@
 
         body {
             font-family: Manrope, sans-serif;
+            margin: 0;
+            padding: 0;
             text-align: center;
             background-color: #f3f5f6;
-            margin: 0;
+        }
+
+        header, footer {
+            background-color: #12181B;
+            color: #ffffff;
+            padding: 15px 20px;
+            font-family: Satoshi, sans-serif;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header a {
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: #FFD700;
+            text-decoration: none;
+        }
+
+        main {
             padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 5px;
+            font-family: Satoshi;
+        }
+        
+        h2 {
+            margin-top: 0;
+            color: #c0470e;
+            font-weight: 500;
+            font-size: 14px;
+            font-family: Satoshi;
+            margin-bottom: 30px;
+            padding-bottom: 3px;
+            border-bottom: .5px solid #ea723c;
+            display: inline-block;
+            cursor: pointer;
         }
 
         h1 {
@@ -185,12 +248,34 @@
     </style>
 </head>
 <body>
+ <!-- Header -->
+ <header>
+    <div class="logo">PaletteMaker</div>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#color-palette">Colors</a>
+        <a href="#about">About</a>
+    </nav>
+</header>
+
+<!-- Main Content -->
+<main>
     <h1>Color Palette</h1>
     <a href="https://asifshahzad.me" target="_blank"><h2>Collection By Asif Shahzad</h2></a>
     <div id="color-palette"></div>
+</main>
+
+<!-- Footer -->
+<footer>
+    <div>© 2025 PaletteMaker. All Rights Reserved.</div>
+    <nav>
+        <a href="#">Privacy Policy</a> |
+        <a href="#">Terms of Service</a>
+    </nav>
+</footer>
 
     <script>
-        const colors = ["#10A37F", "#E4FFF3", "#FF2250", "#FFE9E4", "#EB5E3B", "#8F2F2F", "#D9FF0F", "#FFE472", "#FCCB1D", "#FFF9E6", "#933BEB", "#A6A6A6", "#F8F8F8", "#FFF9E6", "#12181B", "#ea723c", "#c0470e", "#0E1117", "#262730", "#FF4B4B", "#FAFAFA"];
+        const colors = ["#10A37F", "#E4FFF3", "#FF2250", "#FFE9E4", "#EB5E3B", "#8F2F2F", "#D9FF0F", "#FFE472", "#FCCB1D", "#FFF9E6", "#933BEB", "#A6A6A6", "#F8F8F8", "#FFF9E6", "#12181B", "#ea723c", "#c0470e", "#0E1117", "#262730", "#FF4B4B", "#FAFAFA", ];
 
 
         const colorPalette = document.getElementById('color-palette');
