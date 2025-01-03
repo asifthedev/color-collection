@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Palette</title>
+    <style>
+        @font-face {
+            font-family: "Satoshi";
+            src: url(./Satoshi-Variable.ttf);
+        }
+
+  
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Satoshi;
+            background-color: #1a1a1a;
+            padding: 2rem;
+            color: #e1e1e1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #ffffff;
+        }
+
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .color-card {
+            background: #2d2d2d;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .color-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .color-preview {
+            height: 150px;
+            width: 100%;
+        }
+
+        .color-info {
+            padding: 1rem;
+        }
+
+        .color-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .color-code {
+            color: #e1e1e1;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .copy-button {
+            background: none;
+            border: none;
+            padding: 0.5rem;
+            cursor: pointer;
+            float: right;
+            color: #a1a1a1;
+            transition: color 0.2s;
+        }
+
+        .copy-button:hover {
+            color: #ffffff;
+        }
+
+        .copy-button svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .copied {
+            color: #4CAF50;
+        }
+
+        .icon-copy, .icon-check {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Color Palette</h1>
+        <div class="color-grid" id="colorGrid"></div>
+    </div>
+
+    <script>
+        const colors = {
+            BLACK: '#000000',
+            BLUE: '#58C4DD',
+            BLUE_A: '#C7E9F1',
+            BLUE_B: '#9CDCEB',
+            BLUE_C: '#58C4DD',
+            BLUE_D: '#29ABCA',
+            BLUE_E: '#236B8E',
+            DARKER_GRAY: '#222222',
+            DARK_BLUE: '#236B8E',
+            DARK_BROWN: '#8B4513',
+            DARK_GRAY: '#444444',
+            GOLD: '#FFD700',
+            GREEN: '#83C167',
+            GREEN_A: '#C9E2AE',
+            GREEN_B: '#A6CF8C',
+            GREEN_C: '#83C167',
+            GREEN_D: '#77B05D',
+            GREEN_E: '#699C52',
+            GREY_BROWN: '#736357',
+            LIGHT_BROWN: '#CD853F',
+            LIGHT_GRAY: '#BBBBBB',
+            LIGHT_GREY: '#BBBBBB',
+            LIGHT_PINK: '#FFB6C1',
+            LIGHT_PURPLE: '#B189C6',
+            LIME: '#B2F302',
+            MAROON: '#E55A5A',
+            MAROON_A: '#ECABC1',
+            MAROON_B: '#EC92AB',
+            MAROON_C: '#E55A5A',
+            MAROON_D: '#CF5044',
+            MAROON_E: '#94424F',
+            ORANGE: '#FF862F',
+            PINK: '#D147BD',
+            PURPLE: '#9A72AC',
+            PURPLE_A: '#CAA3E8',
+            PURPLE_B: '#B189C6',
+            PURPLE_C: '#9A72AC',
+            PURPLE_D: '#715582',
+            PURPLE_E: '#644172',
+            RED: '#FC6255',
+            RED_A: '#F7A1A3',
+            RED_B: '#FF8080',
+            RED_C: '#FC6255',
+            RED_D: '#E65A4C',
+            RED_E: '#CF5044',
+            TEAL: '#49A88F',
+            TEAL_A: '#ACEAD7',
+            TEAL_B: '#76DDC0',
+            TEAL_C: '#5CD0B3',
+            TEAL_D: '#55C1A7',
+            TEAL_E: '#49A88F',
+            WHITE: '#FFFFFF',
+            YELLOW: '#FFF863',
+            YELLOW_A: '#F7F7B6',
+            YELLOW_B: '#FFEA94',
+            YELLOW_C: '#FFF863',
+            YELLOW_D: '#FADF5A',
+            YELLOW_E: '#F9D54E'
+        };
+
+        function createColorCard(name, hex) {
+            const card = document.createElement('div');
+            card.className = 'color-card';
+            
+            const preview = document.createElement('div');
+            preview.className = 'color-preview';
+            preview.style.backgroundColor = hex;
+            
+            const info = document.createElement('div');
+            info.className = 'color-info';
+            
+            const flexContainer = document.createElement('div');
+            flexContainer.className = 'flex-container';
+            
+            const colorName = document.createElement('div');
+            colorName.className = 'color-name';
+            colorName.textContent = name;
+            
+            const colorCode = document.createElement('div');
+            colorCode.className = 'color-code';
+            colorCode.textContent = hex;
+            
+            const copyButton = document.createElement('button');
+            copyButton.className = 'copy-button';
+            copyButton.innerHTML = `<svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>`;
+            copyButton.title = 'Copy color code';
+            
+            copyButton.addEventListener('click', () => {
+                navigator.clipboard.writeText(hex);
+                copyButton.innerHTML = `<svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>`;
+                copyButton.classList.add('copied');
+                setTimeout(() => {
+                    copyButton.innerHTML = '📋';
+                    copyButton.classList.remove('copied');
+                }, 2000);
+            });
+            
+            flexContainer.appendChild(colorCode);
+            flexContainer.appendChild(copyButton);
+            
+            info.appendChild(colorName);
+            info.appendChild(flexContainer);
+            
+            card.appendChild(preview);
+            card.appendChild(info);
+            
+            return card;
+        }
+
+        const colorGrid = document.getElementById('colorGrid');
+        
+        Object.entries(colors).reverse().forEach(([name, hex]) => {
+            const card = createColorCard(name, hex);
+            colorGrid.appendChild(card);
+        });
+    </script>
+</body>
+</html>
