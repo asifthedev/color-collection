@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Showcase</title>
+    <link rel="stylesheet" href="fonts_styles.css">
+    <style>
+        :root {
+            --bg-color: white;
+            --text-color: #5c5c5c;
+            --border-color: #e5e5e5;
+            --btn-bg: white;
+            --btn-text: #666;
+            --download-btn-color: #666; /* Default color for light mode */
+            --download-btn-hover-color: #2563eb;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #0E100F;
+            --text-color: #fffce1;
+            --border-color: #333;
+            --btn-bg: #D9FF0F;
+            --btn-text: #e5e5e5;
+            --download-btn-color: #e5e5e5; /* Text color for dark mode */
+            --download-btn-hover-color: #10A37F;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+            font-family: Arial, sans-serif;
+        }
+
+        .theme-toggle {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .theme-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .theme-btn img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .font-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .font-item {
+            padding: 30px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .font-name {
+            color: var(--text-color);
+            font-size: 16px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .sample-text {
+            font-size: 36px;
+            line-height: 1.4;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .weight-controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .weight-btn {
+            padding: 6px 16px;
+            border: 1px solid var(--border-color);
+            background: none;
+            color: var(--btn-text);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .weight-btn.active {
+            background: #D9FF0F;
+            color: black;
+            border-color: #D9FF0F;
+        }
+
+        .download-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--download-btn-color);
+            margin-bottom: -5px;
+        }
+
+        .download-btn:hover {
+            color: var(--download-btn-hover-color);
+        }
+
+        #download-icon {
+            width: 19px;
+            height: 19px;
+            margin-left: -3px;
+        }
+
+        #font_download_link {
+            height: 19px;
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <div class="theme-toggle">
+        <button class="theme-btn" onclick="toggleTheme()">
+            <img id="theme-icon" src="assets/icons/sun.svg" alt="Theme Icon">
+        </button>
+    </div>
+
+    <div class="font-container" id="font-container"></div>
+
+    <script>
+        // Dictionary for fonts
+        const fonts = [
+            {
+                name: "Computer Modern Roman",
+                download_path: "./fonts/to_download/cmu.serif-roman.zip"
+            },
+            {
+                name: "Latin Modern Roman",
+                download_path: "./fonts/to_download/Latin-Modern-Roman.zip"
+            },
+            {
+                name: "Soage",
+                download_path: "./fonts/to_download/soage - luxury.zip"
+            },
+            {
+               name: "Clash Display",
+               download_path: "https://drive.google.com/uc?id=1KRYDxubIPcfaFI9NqiwXhwA-aYn7Scuk&export=download"
+            },
+            {
+                name: "SF Pro Display",
+                download_path: "https://drive.google.com/uc?id=1wtwMwGSwVfwRy0u_Sfh8LN3fIoxN0NIp&export=download"
+            }
+        ];
+
+        // Generate font items
+        const fontContainer = document.getElementById('font-container');
+
+        fonts.forEach((font, index) => {
+            const fontItem = document.createElement('div');
+            fontItem.className = 'font-item';
+
+            fontItem.innerHTML = `
+                <div class="font-name">
+                    ${font.name}
+                    <a id="font_download_link" href="${font.download_path}" download="${font.name}">
+                        <button class="download-btn">
+                            <img id="download-icon" src="assets/icons/download.svg" alt="Download">
+                        </button>
+                    </a>
+                </div>
+                
+                <div class="sample-text _${index + 1}" style="font-weight: normal">
+                    The quick brown fox jumps over the lazy dog
+                </div>
+                
+                <div class="controls">
+                    <div class="weight-controls">
+                        <button class="weight-btn active" onclick="changeWeight(this, 'normal')">Normal</button>
+                        <button class="weight-btn" onclick="changeWeight(this, 'medium')">Medium</button>
+                        <button class="weight-btn" onclick="changeWeight(this, 'bold')">Bold</button>
+                    </div>
+                </div>
+            `;
+
+            fontContainer.appendChild(fontItem);
+        });
+
+        // Change font weight
+        function changeWeight(button, weight) {
+            const buttons = button.parentElement.getElementsByClassName('weight-btn');
+            Array.from(buttons).forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            const fontItem = button.closest('.font-item');
+            const sampleText = fontItem.querySelector('.sample-text');
+
+            const weightMap = {
+                'normal': '400',
+                'medium': '500',
+                'bold': '700'
+            };
+
+            sampleText.style.fontWeight = weightMap[weight];
+        }
+
+        // Theme toggle
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            const isDark = body.getAttribute('data-theme') === 'dark';
+            if (isDark) {
+                body.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+                icon.src = "assets/icons/moon.svg";
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                icon.src = "assets/icons/sun.svg";
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            const icon = document.getElementById('theme-icon');
+            if (savedTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+                icon.src = "assets/icons/sun.svg";
+            } else {
+                icon.src = "assets/icons/moon.svg";
+            }
+        });
+    </script>
+</body>
+</html>

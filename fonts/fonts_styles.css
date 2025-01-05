@@ -1,0 +1,34 @@
+/* Computer Modern Serif Roman */
+@font-face {
+    font-family: 'Computer Modern Serif Roman';
+    src: url(./fonts/to_show_off/computer_modern_roman.ttf) format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Latin Modern Roman';
+    src: url(fonts/to_show_off/Latin-Modern-Roman/lmroman10-regular.otf);
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: Soage;
+    src: url(fonts/to_show_off/Soage/soage/Soage.otf);
+}
+
+@font-face {
+    font-family: "Clash Display";
+    src: url(fonts/to_show_off/Clash_Display/ClashDisplay-Variable.ttf);
+}
+
+@font-face {
+    font-family: "SF Pro Display";
+    src: url(fonts/to_show_off/SF_Pro_Display/SFPRODISPLAYREGULAR.OTF);
+}
+
+._1 { font-family: 'Computer Modern Serif Roman'; }
+._2 { font-family: 'Latin Modern Roman'; }
+._3 { font-family: "Soage"; }
+._4 { font-family: "Clash Display"; }
+._5 { font-family: "SF Pro Display"; }
+
