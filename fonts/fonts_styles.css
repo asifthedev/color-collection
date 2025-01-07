@@ -50,6 +50,12 @@
     font-weight: normal;
 }
 
+@font-face {
+    font-family: "SF Pro Display";
+    src: url(fonts/to_show_off/SF_Pro_Display_1/SFPRODISPLAYMEDIUM.OTF);
+    font-weight: 500;
+}
+
 
 ._1 { font-family: 'Computer Modern Serif Roman'; }
 ._2 { font-family: 'Latin Modern Roman'; }
