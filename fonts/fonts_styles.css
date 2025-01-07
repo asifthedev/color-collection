@@ -44,10 +44,18 @@
     font-weight: 700;
 }
 
+@font-face {
+    font-family: "SF Pro Display";
+    src: url(fonts/to_show_off/SF_Pro_Display_1/SFPRODISPLAYREGULAR.OTF);
+    font-weight: normal;
+}
+
+
 ._1 { font-family: 'Computer Modern Serif Roman'; }
 ._2 { font-family: 'Latin Modern Roman'; }
 ._3 { font-family: "Soage"; }
 ._4 { font-family: "Clash Display"; }
 ._5 { font-family: "SF Pro Display"; }
 ._6 { font-family: "General Sans";}
+._7 { font-family: "SF Pro Display";}
 
